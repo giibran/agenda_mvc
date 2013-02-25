@@ -1,4 +1,4 @@
-require 'lib/conection.rb'
+require '../lib/conection.rb'
 class Person
 	attr_accessor :name, :last_name, :phone, :addresses
 
@@ -18,8 +18,8 @@ class Person
     	query_person = "INSERT INTO person(name,last_name,phone) VALUES('#{name}', '#{last_name}', '#{phone}');"
       send_query(query_person)
       current_id = "SELECT * FROM person ORDER BY id DESC LIMIT 1;"
-      current_id = send_query(current_id)
-      addresses.each{ |item| query_address = "INSERT INTO address(id_person,address) VALUES('#{current_id}', '#{item}');" send_query(query_address) } 
+      #current_id = send_query(current_id)
+      #addresses.each{ |item| query_address = "INSERT INTO address(id_person,address) VALUES('#{current_id}', '#{item}');" send_query(query_address) } 
   end
 
   def find(id)
