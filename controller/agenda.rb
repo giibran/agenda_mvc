@@ -5,7 +5,7 @@ class Agenda
 	attr_accessor :contact
 	
 	def initialize
-		@contact = contact
+		@contact = true
 	end
 
 	def menu
@@ -31,5 +31,5 @@ class Agenda
 
 end
 
-@contacts = Contacts.new
-@contacts.menu
+contacts = Agenda.new
+contacts.menu

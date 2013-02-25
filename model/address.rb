@@ -1,4 +1,4 @@
-require 'lib/conection.rb'
+require '../lib/conection.rb'
 class Address
 	attr_accessor :id_person, :Address
 
