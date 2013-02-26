@@ -30,4 +30,8 @@ class Address
     query_person = "UPDATE person SET  id = '#{id}' WHERE id = #{id};"
     send_query(query_person)
   end
+
+  def show_all_person(id_person)
+    query_person = "SELECT * FROM address WHERE id_person = '#{id_person}'"
+  end
 end

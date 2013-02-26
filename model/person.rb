@@ -38,4 +38,9 @@ class Person
     	query_person = "UPDATE person SET  id = '#{id}' WHERE id = #{id};"
       send_query(query_person)
   end
+
+  def show_all
+    query_person = "SELECT * FROM person;"
+    send_query(query_person)    
+  end
 end
