@@ -5,18 +5,20 @@ class Agenda
 	attr_accessor :terminal_view
 	
 	def initialize
-		@terminal_view = Terminal_view.new
+		@terminal_view = TerminalView.new
 	end
 
 	def menu
-		menu = Terminal_view.new
+		menu = TerminalView.new
 		option = 0
 		while option != "5"
         	menu.print_menu
 			option = menu.input
 	      case option
 	      when "1"
-	        @terminal_view.ask_info
+	       person_info = @terminal_view.ask_info_person
+	  	   person = Person.new(person_info[0], person_info[1], person_info[2])
+	  	   id = person.create(person_info)
 	      when "2"
 	        show_all()
 	      when "3"

@@ -1,23 +1,23 @@
 require '../lib/conection.rb'
-class Person
+require '../model/super_model.rb'
+
+class Person < SuperModel
 	attr_accessor :name, :last_name, :phone, :addresses
 
-	def initialize(id, name, last_name, phone, addresses)
-    @id = id
+	def initialize(name, last_name, phone)
     @name = name
     @last_name = last_name
     @phone = phone
-    @addresses = addresses
+    #@addresses = addresses
   end
 
   def save()
     	
   end
 
-  def create(name, last_name, phone, addresses)
-    	query_person = "INSERT INTO person(name,last_name,phone) VALUES('#{name}', '#{last_name}', '#{phone}');"
-      send_query(query_person)
-      current_id = "SELECT * FROM person ORDER BY id DESC LIMIT 1;"
+  def create(value)
+      fields = ["name, last_name, phone"]
+    	super("person",fields,value)
       #current_id = send_query(current_id)
       #addresses.each{ |item| query_address = "INSERT INTO address(id_person,address) VALUES('#{current_id}', '#{item}');" send_query(query_address) } 
   end

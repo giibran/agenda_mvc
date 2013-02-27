@@ -1,5 +1,5 @@
 require '../lib/conection.rb'
-class Address
+class Address < SuperModel
 	attr_accessor :id_person, :Address
 
 	def initialize(id_person, address)
