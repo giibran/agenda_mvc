@@ -43,4 +43,10 @@ class Person < SuperModel
     query_person = "SELECT * FROM person;"
     send_query(query_person)    
   end
+
+  def get_last_person
+    query_person = "SELECT * FROM person ORDER BY (id) DESC LIMIT 1;"
+    conect = Conection.new
+    conect.send_query(query_person)
+  end
 end
