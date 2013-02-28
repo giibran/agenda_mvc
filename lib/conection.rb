@@ -1,5 +1,4 @@
 require 'mysql2'
-#require 'sqlite3-ruby'
 
 class Conection
 

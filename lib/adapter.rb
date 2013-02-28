@@ -1,21 +1,12 @@
 require '../lib/conection.rb'
-require 'debugger'
 
-class SuperModel
-	attr_accessor :table, :fields, :value
-
-	def initialize(table, fields, value)
-    	@table = table
-	    @field = field
-	    @value = value
-	end
-
+class Adapter 
 	def save()
     	
   	end
 
   	def create(table, fields, value)
-    	#query_address = "INSERT INTO #{table}(#{fields.join(',')}) VALUES(#{value.map {|x| "'#{x}'"}.join(',')});"
+    	query_address = "INSERT INTO #{table}(#{fields.join(',')}) VALUES(#{value.map {|x| "'#{x}'"}.join(',')});"
     	conect = Conection.new
    		conect.send_query(query_address)
  	end

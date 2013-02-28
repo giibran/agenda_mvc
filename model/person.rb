@@ -15,7 +15,7 @@ class Person < SuperModel
     	
   end
 
-  def create(value)
+  def create(person_info)
       fields = ["name, last_name, phone"]
     	super("person",fields,value)
       #current_id = send_query(current_id)

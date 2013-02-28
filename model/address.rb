@@ -11,7 +11,7 @@ class Address < SuperModel
     	
   end
 
-  def create(id_person, address)
+  def create(id_person, address_info)
     query_address = "INSERT INTO address(id_person, address) VALUES('#{id_person}', '#{address}');"
     send_query(query_address)
   end

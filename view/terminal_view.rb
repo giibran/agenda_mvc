@@ -27,11 +27,11 @@ class TerminalView
     addresses = []
     while one_more == "1"
       puts "address:"
-      address_temp = input
-      addresses << Address.new(1,address_temp)
+      addresses.push(input)
       puts " 1)add other address? \n 2) NO add"
       one_more = input
     end
+    addresses
   end
     
     #@people << 
