@@ -19,10 +19,14 @@ class Agenda
 	      case option
 	      when "1"
 	       person_info = @terminal_view.ask_info_person
-	  	   person = Person.new(person_info[0], person_info[1], person_info[2])
-	  	   person.create(person_info)
-	  	   id = person.get_last_person
-	  	   debugger
+	       address_info = @terminal_view.ask_info_address
+	       person = Person.new(person_info)
+	       id = person.create(person_info)
+	       address = Address.new(id, address_info)
+	       address.create(id, address_info)
+	       debugger
+	  	   #person = Person.new(person_info[0], person_info[1], person_info[2])
+	  	   #id = person.create(person_info)
 	      when "2"
 	        show_all()
 	      when "3"

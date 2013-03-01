@@ -19,7 +19,7 @@ class Person #< SuperModel
   def create(value)
       fields = ["name, last_name, phone"]
     	adapter = Adapter.new
-      adapter.create("person", fields, value)
+      id = adapter.create("person", fields, value)
       #current_id = send_query(current_id)
       #addresses.each{ |item| query_address = "INSERT INTO address(id_person,address) VALUES('#{current_id}', '#{item}');" send_query(query_address) } 
   end
@@ -44,11 +44,5 @@ class Person #< SuperModel
   def show_all
     query_person = "SELECT * FROM person;"
     send_query(query_person)    
-  end
-
-  def get_last_person
-    query_person = "SELECT * FROM person ORDER BY (id) DESC LIMIT 1;"
-    conect = Conection.new
-    conect.send_query(query_person)
   end
 end
