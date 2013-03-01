@@ -20,8 +20,6 @@ class Person #< SuperModel
       fields = ["name, last_name, phone"]
     	adapter = Adapter.new
       id = adapter.create("person", fields, value)
-      #current_id = send_query(current_id)
-      #addresses.each{ |item| query_address = "INSERT INTO address(id_person,address) VALUES('#{current_id}', '#{item}');" send_query(query_address) } 
   end
 
   def find(id)

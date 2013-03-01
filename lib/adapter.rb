@@ -23,6 +23,10 @@ class Adapter
    		end
  	end
 
+  def show_all()
+    
+  end
+
 	def find(id_person)
 	    query_person = "SELECT * FROM address WHERE id_person = '#{id_person}';"
 	    send_query(query_person)

@@ -28,7 +28,9 @@ class Agenda
 	  	   #person = Person.new(person_info[0], person_info[1], person_info[2])
 	  	   #id = person.create(person_info)
 	      when "2"
-	        show_all()
+	      	#algo
+	      	
+	        @terminal_view.print_contact(person_info, address_info)
 	      when "3"
 	        selected_user = select_user()
 	        edit_person(selected_user)

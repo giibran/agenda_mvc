@@ -37,7 +37,9 @@ class TerminalView
     #@people << 
     #m =Person.new(id, name, lastname, phone, addresses).first
 
-	def show_all()
-		print()
+	def print_contact(person_info, address_info)
+		print("NAME: #{person_info[0]} \nLAST NAME: #{person_info[1]} \nPHONE: #{person_info[2]} \nADDRESS: ")
+    address_info.each do |address|
+      puts("\n#{address}")
 	end	
 end
