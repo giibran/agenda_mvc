@@ -1,4 +1,5 @@
 require '../lib/conection.rb'
+require '../lib/adapter.rb'
 require 'debugger'
 
 class SuperModel

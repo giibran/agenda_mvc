@@ -1,13 +1,14 @@
 require '../lib/conection.rb'
 require '../model/super_model.rb'
+require '../lib/adapter.rb'
 
-class Person < SuperModel
-	attr_accessor :name, :last_name, :phone, :addresses
+class Person #< SuperModel
+	#attr_accessor :name, :last_name, :phone, :addresses
 
-	def initialize(name, last_name, phone)
-    @name = name
-    @last_name = last_name
-    @phone = phone
+	def initialize(person_info)
+    @name = person_info[0]
+    @last_name = person_info[1]
+    @phone = person_info[2]
     #@addresses = addresses
   end
 
@@ -15,9 +16,10 @@ class Person < SuperModel
     	
   end
 
-  def create(person_info)
+  def create(value)
       fields = ["name, last_name, phone"]
-    	super("person",fields,value)
+    	adapter = Adapter.new
+      adapter.create("person", fields, value)
       #current_id = send_query(current_id)
       #addresses.each{ |item| query_address = "INSERT INTO address(id_person,address) VALUES('#{current_id}', '#{item}');" send_query(query_address) } 
   end
