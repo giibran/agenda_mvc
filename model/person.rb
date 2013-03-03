@@ -3,9 +3,10 @@ require '../model/super_model.rb'
 require '../lib/adapter.rb'
 
 class Person #< SuperModel
-	#attr_accessor :name, :last_name, :phone, :addresses
+	attr_accessor :name, :last_name, :phone, :table
 
 	def initialize(person_info)
+    @table = person
     @name = person_info[0]
     @last_name = person_info[1]
     @phone = person_info[2]
@@ -13,34 +14,33 @@ class Person #< SuperModel
   end
 
   def save()
-    	
+    
   end
 
-  def create(value)
+  def create()
       fields = ["name, last_name, phone"]
+      values = [@name, @last_name, @phone]
     	adapter = Adapter.new
-      id = adapter.create("person", fields, value)
+      id = adapter.create("person", fields, values)
   end
 
   def find(id)
-    	query_person = "SELECT * FROM person WHERE id = '#{id}';"
-      send_query(query_person)
+    	person = Adapter.new
+      person.find(id)
   end
 
   def destroy(id)
-    	query_person = "DELETE FROM person WHERE id = '#{id}';"
-      send_query(query_person)
-      query_person = "DELETE FROM address WHERE id_person = '#{id}';"
-      send_query(query_person)
+    	person = Adapter.new
+      person.destroy(id)
   end  
 
-  def update_attributes(id)
-    	query_person = "UPDATE person SET  id = '#{id}' WHERE id = #{id};"
-      send_query(query_person)
+  def update_attributes(id, fields, values)
+    	person = Adapter.new
+      person.update(@table, id, fields, values)
   end
 
   def show_all
-    query_person = "SELECT * FROM person;"
-    send_query(query_person)    
+      person = Adapter.new
+      person.find_all(@table)
   end
 end

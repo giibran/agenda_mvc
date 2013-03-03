@@ -1,45 +1,40 @@
 require '../lib/conection.rb'
 class Address #< SuperModel
-	attr_accessor :id_person, :Address
+	attr_accessor :id_person, :address
 
 	def initialize(id_person, address)
     @id_person = id_person
     @address = address
 	end
 
-	def save()
-    	
+  def save()
+    
   end
 
-  def create(value)
-      fields = ["id_person, value"]
-      adapter = Adapter.new
-      adapter.create("address", fields, value)
-      
-  end
-
-  def create(id_person, value)
+  def create()
       fields = ["id_person, address"]
+      values = [@id_person, @address]
       adapter = Adapter.new
-      adapter.create_address("address", id_person, fields, value)
+      id = adapter.create("address", fields, values)
   end
 
-  def find(id_person)
-    query_person = "SELECT * FROM address WHERE id_person = '#{id_person}';"
-    send_query(query_person)
+  def find(id)
+      address = Adapter.new
+      address.find(id)
   end
 
-  def destroy(id_person)
-    query_person = "DELETE FROM address WHERE id_person = '#{id_person}';"
-    send_query(query_person)
+  def destroy(id)
+      address = Adapter.new
+      address.destroy(id)
   end  
 
-  def update_attributes(id)
-    query_person = "UPDATE person SET  id = '#{id}' WHERE id = #{id};"
-    send_query(query_person)
+  def update_attributes(id, fields, values)
+      address = Adapter.new
+      address.update(@table, id, fields, values)
   end
 
-  def show_all_person(id_person)
-    query_person = "SELECT * FROM address WHERE id_person = '#{id_person}'"
+  def show_all
+      address = Adapter.new
+      address.find_all(@table)
   end
 end
