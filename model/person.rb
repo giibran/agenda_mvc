@@ -1,12 +1,13 @@
 require '../lib/conection.rb'
 require '../model/super_model.rb'
 require '../lib/adapter.rb'
+require 'debugger'
 
 class Person #< SuperModel
 	attr_accessor :name, :last_name, :phone, :table
 
 	def initialize(person_info)
-    @table = person
+    @table = "person"
     @name = person_info[0]
     @last_name = person_info[1]
     @phone = person_info[2]
@@ -21,7 +22,7 @@ class Person #< SuperModel
       fields = ["name, last_name, phone"]
       values = [@name, @last_name, @phone]
     	adapter = Adapter.new
-      id = adapter.create("person", fields, values)
+      adapter.create(@table, fields, values)
   end
 
   def find(id)

@@ -8,29 +8,21 @@ class Agenda
 	
 	def initialize
 		@terminal_view = TerminalView.new
+		@person = Person.new(["true", "true", "true"])
+		@address = Address.new("true", "true")
 	end
 
 	def menu
 		menu = TerminalView.new
 		option = 0
 		while option != "5"
-        	menu.print_menu
+      menu.print_menu
 			option = menu.input
 	      case option
 	      when "1"
-	       person_info = @terminal_view.ask_info_person
-	       address_info = @terminal_view.ask_info_address
-	       person = Person.new(person_info)
-	       id = person.create(person_info)
-	       address = Address.new(id, address_info)
-	       address.create(id, address_info)
-	       debugger
-	  	   #person = Person.new(person_info[0], person_info[1], person_info[2])
-	  	   #id = person.create(person_info)
+	       add_contact
 	      when "2"
-	      	#algo
-	      	
-	        @terminal_view.print_contact(person_info, address_info)
+	      	list_contacts
 	      when "3"
 	        selected_user = select_user()
 	        edit_person(selected_user)
@@ -46,10 +38,32 @@ class Agenda
 	end
 
 	def list_contacts
+		person_info =[]
+  	all = @person.show_all
+  	all.each do |item|
+  		address_info = []
+  		person_id = item["id"]
+  		person_info[0] = item["name"]
+  		person_info[1] = item["last_name"]
+  		person_info[2] = item["phone"]
+  		all_address = @address.find_by("id_person", person_id)
+  		all_address.each do |item|
+  			address_info.push(item["address"])
+  		end
+  		@terminal_view.print_contact(person_info, address_info)
+  	end
 	end
 
 	def add_contact
-		contact = @terminal_view.ask_info
+		person_info = @terminal_view.ask_info_person
+	  address_info = @terminal_view.ask_info_address
+	  @person = Person.new(person_info)
+	  id = @person.create().first["id"]
+	  address_info.each do |address|
+	  	@address = Address.new(id, address)
+	   	@address.create()
+	  end
+
 	end
 
 	def edit_contact(id)

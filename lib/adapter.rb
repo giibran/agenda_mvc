@@ -7,6 +7,8 @@ class Adapter
     query = "INSERT INTO #{table}(#{fields.join(',')}) VALUES(#{values.map {|x| "'#{x}'"}.join(',')});"
     conect = Conection.new
     conect.send_query(query)
+    query = "SELECT * FROM #{table} ORDER BY id DESC LIMIT 1"
+    id = conect.send_query(query)
   end
 
   def find(table, id)
@@ -22,7 +24,7 @@ class Adapter
   end
 
   def find_by(table, field, value)
-    query = "SELECT FROM #{table} WHERE #{field} = #{id};"
+    query = "SELECT * FROM #{table} WHERE #{field} = #{value};"
     conect = Conection.new
     conect.send_query(query)    
   end
