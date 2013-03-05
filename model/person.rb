@@ -4,13 +4,13 @@ require '../lib/adapter.rb'
 require 'debugger'
 
 class Person #< SuperModel
-	attr_accessor :name, :last_name, :phone, :table
+	attr_accessor :name, :last_name, :phone, :id
 
 	def initialize(person_info)
-    @table = "person"
-    @name = person_info[0]
-    @last_name = person_info[1]
-    @phone = person_info[2]
+    @id = person_info[:id]
+    @name = person_info[:name]
+    @last_name = person_info[:last_name]
+    @phone = person_info[:phone]
     #@addresses = addresses
   end
 
@@ -18,30 +18,44 @@ class Person #< SuperModel
     
   end
 
+  def self.table_name
+    "person"
+  end
+
   def create()
       fields = ["name, last_name, phone"]
       values = [@name, @last_name, @phone]
-    	adapter = Adapter.new
-      adapter.create(@table, fields, values)
+      Adapter.create(self.class.table_name, fields, values)
   end
 
-  def find(id)
-    	person = Adapter.new
-      person.find(id)
+  def self.find(id)
+      person_info = Adapter.find(id).first
+      Person.new({:id => person_info["id"], :name => person_info["name"], :last_name => person_info["last_name"], :phone => person_info.first["phone"]})
   end
 
-  def destroy(id)
-    	person = Adapter.new
-      person.destroy(id)
+  def addresses
+    Address.find_by("id_person", id)
+  end
+
+  def destroy()
+      Adapter.destroy(id)
+      A
   end  
 
   def update_attributes(id, fields, values)
-    	person = Adapter.new
-      person.update(@table, id, fields, values)
+      Adapter.update(self.class.table_name, id, fields, values)
   end
 
-  def show_all
-      person = Adapter.new
-      person.find_all(@table)
+  def self.show_all
+      person_info = Adapter.find_all(Person.table_name)
+      people = []
+      person_info.each do |item|
+        person_info[:id] = item["id"]
+        person_info[:name] = item["name"]
+        person_info[:last_name] = item["last_name"]
+        person_info[:phone] = item["phone"]
+        people.push(Person.new(person_info))
+      end
+      people
   end
 end

@@ -6,57 +6,50 @@ require 'debugger'
 class Agenda
 	attr_accessor :terminal_view
 	
-	def initialize
-		@terminal_view = TerminalView.new
-		@person = Person.new(["true", "true", "true"])
-		@address = Address.new("true", "true")
-	end
 
 	def menu
-		menu = TerminalView.new
 		option = 0
 		while option != "5"
-      menu.print_menu
-			option = menu.input
+      TerminalView.print_menu
+			option = TerminalView.input
 	      case option
 	      when "1"
-	       add_contact
+	        add_contact
 	      when "2"
 	      	list_contacts
 	      when "3"
-	        selected_user = select_user()
-	        edit_person(selected_user)
+	        id_person = choose_user
 	      when "4"
-	        selected_user = select_user()
-	        delete_person(selected_user)
+	        id_person = choose_user
+
 	      when "5"
 	        puts "SEE YOU LATER ALLIGATOR"                    
 	      else
 	        puts "INVALID OPTION"
-	      end    
+	      end  
 	  end              
 	end
 
 	def list_contacts
 		person_info =[]
-  	all = @person.show_all
+  	all = Person.show_all
   	all.each do |item|
   		address_info = []
   		person_id = item["id"]
   		person_info[0] = item["name"]
   		person_info[1] = item["last_name"]
   		person_info[2] = item["phone"]
-  		all_address = @address.find_by("id_person", person_id)
+  		all_address = Address.find_by("id_person", person_id)
   		all_address.each do |item|
   			address_info.push(item["address"])
   		end
-  		@terminal_view.print_contact(person_info, address_info)
+  		TerminalView.print_contact(person_info, address_info)
   	end
 	end
 
 	def add_contact
-		person_info = @terminal_view.ask_info_person
-	  address_info = @terminal_view.ask_info_address
+		person_info = TerminalView.ask_info_person
+	  address_info = TerminalView.ask_info_address
 	  @person = Person.new(person_info)
 	  id = @person.create().first["id"]
 	  address_info.each do |address|
@@ -66,12 +59,20 @@ class Agenda
 
 	end
 
+	def choose_user
+  	all = Person.show_all
+  	all.each do |item|
+  		TerminalView.print_pair(person_info)
+  	end
+  	TerminalView.ask_wich_user
+	end
+
 	def edit_contact(id)
-		
 	end
 
 	def destroy_contact(id)
-		
+		person = Person.find(id)
+		person.destroy
 	end
 
 
