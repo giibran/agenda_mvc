@@ -29,17 +29,25 @@ class Person #< SuperModel
   end
 
   def self.find(id)
-      person_info = Adapter.find(id).first
-      Person.new({:id => person_info["id"], :name => person_info["name"], :last_name => person_info["last_name"], :phone => person_info.first["phone"]})
+      person_info = Adapter.find(table_name, id).first
+      Person.new({:id => person_info["id"], :name => person_info["name"], :last_name => person_info["last_name"], :phone => person_info["phone"]})
   end
 
-  def addresses
-    Address.find_by("id_person", id)
+  def self.addresses(id)
+    addresses = []
+      addresses_info = Address.find_by("id_person", id).each do |address|
+        address[:id] = item["id"]
+        address[:id_person] = item["id_person"]
+        address[:name] = item["name"]
+        addresses.push(Address.new(address))
+      end
   end
 
   def destroy()
-      Adapter.destroy(id)
-      A
+      Adapter.destroy(Person.table_name, id)
+      Person.addresses(id).each do |item|
+        Address.destroy(item.id)
+      end
   end  
 
   def update_attributes(id, fields, values)
@@ -50,11 +58,12 @@ class Person #< SuperModel
       person_info = Adapter.find_all(Person.table_name)
       people = []
       person_info.each do |item|
-        person_info[:id] = item["id"]
-        person_info[:name] = item["name"]
-        person_info[:last_name] = item["last_name"]
-        person_info[:phone] = item["phone"]
-        people.push(Person.new(person_info))
+        person_hash = {}
+        person_hash[:id] = item["id"]
+        person_hash[:name] = item["name"]
+        person_hash[:last_name] = item["last_name"]
+        person_hash[:phone] = item["phone"]
+        people.push(Person.new(person_hash))
       end
       people
   end

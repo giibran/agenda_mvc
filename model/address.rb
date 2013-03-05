@@ -1,11 +1,12 @@
 require '../lib/conection.rb'
 require '../lib/adapter.rb'
 class Address #< SuperModel
-	attr_accessor :id_person, :address
+	attr_accessor :id_person, :address, :id
 
-	def initialize(id_person, address)
-    @id_person = id_person
-    @address = address
+	def initialize(address_info)
+    @id = address_info[:id]
+    @id_person = address_info[:id_person]
+    @address = address_info[:address]
 	end
 
   def save()
@@ -23,7 +24,9 @@ class Address #< SuperModel
   end
 
   def self.find(id)
-      Adapter.find(id)
+    address = {}
+    address_info = Adapter.find(id).first
+    Person.new({:id => address_info["id"], :id_person => address_info["id_person"], :address => address_info["address"]})
   end
 
   def self.find_by(field, value)
@@ -45,8 +48,8 @@ class Address #< SuperModel
         address_info[:id] = item["id"]
         address_info[:id_person] = item["id_person"]
         address_info[:name] = item["name"]
-        people.push(Person.new(person_info))
+        addresses.push(Address.new(address_info))
       end
-      people
+      addresses
   end
 end

@@ -18,10 +18,10 @@ class Agenda
 	      when "2"
 	      	list_contacts
 	      when "3"
-	        id_person = choose_user
+	        person = choose_user
 	      when "4"
 	        id_person = choose_user
-
+	        destroy_contact(id_person)
 	      when "5"
 	        puts "SEE YOU LATER ALLIGATOR"                    
 	      else
@@ -35,10 +35,10 @@ class Agenda
   	all = Person.show_all
   	all.each do |item|
   		address_info = []
-  		person_id = item["id"]
-  		person_info[0] = item["name"]
-  		person_info[1] = item["last_name"]
-  		person_info[2] = item["phone"]
+  		person_id = item.id
+  		person_info[0] = item.name
+  		person_info[1] = item.last_name
+  		person_info[2] = item.phone
   		all_address = Address.find_by("id_person", person_id)
   		all_address.each do |item|
   			address_info.push(item["address"])
@@ -53,16 +53,19 @@ class Agenda
 	  @person = Person.new(person_info)
 	  id = @person.create().first["id"]
 	  address_info.each do |address|
-	  	@address = Address.new(id, address)
+	  	address_info = {}
+	  	address_info[:id_person] = id
+	  	address_info[:address] = address
+	  	@address = Address.new(address_info)
 	   	@address.create()
 	  end
 
 	end
 
 	def choose_user
-  	all = Person.show_all
-  	all.each do |item|
-  		TerminalView.print_pair(person_info)
+  	people = Person.show_all
+  	people.each do |item|
+  		TerminalView.print_pair(item)
   	end
   	TerminalView.ask_wich_user
 	end

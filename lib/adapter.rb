@@ -11,7 +11,7 @@ class Adapter
   end
 
   def self.find(table, id)
-    query = "SELECT FROM #{table} WHERE id = #{id};"
+    query = "SELECT * FROM #{table} WHERE id = #{id};"
     Conection.send_query(query)    
   end
 

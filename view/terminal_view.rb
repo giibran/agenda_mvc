@@ -12,13 +12,13 @@ class TerminalView
 	end
 
 	def self.ask_info_person
-    person_info =[]
+    person_info = {}
     puts "name:"
-    person_info[0] = self.input
+    person_info[:name] = self.input
     puts "lastname:"
-    person_info[1] = self.input
+    person_info[:last_name] = self.input
     puts "phone:"
-    person_info[2] = self.input
+    person_info[:phone] = self.input
     person_info
   end
     
