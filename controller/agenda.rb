@@ -74,9 +74,10 @@ class Agenda
 	def edit_contact(id)
 		person = Person.find(id)
 		addresses = []
-		Address.find_by("id_person", person.id).each do |item|
+		Person.addresses(person.id).each do |item|
 			addresses.push(item)
 		end
+		debugger
 		TerminalView.edit_contact(person, addresses)
 	end
 

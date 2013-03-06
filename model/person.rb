@@ -36,12 +36,15 @@ class Person #< SuperModel
   def self.addresses(id)
     addresses = []
       addresses_info = Address.find_by("id_person", id).each do |item|
-        address = {}
-        address[:id] = item["id"]
-        address[:id_person] = item["id_person"]
-        address[:name] = item["name"]
-        addresses.push(Address.new(address))
+        addresses.push(item)
+        #address = {}
+        #address[:id] = item["id"]
+        #address[:id_person] = item["id_person"]
+        #address[:name] = item["name"]
+        #addresses.push(Address.new(address))
       end
+      debugger
+      addresses
   end
 
   def destroy()

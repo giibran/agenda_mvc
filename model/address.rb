@@ -30,7 +30,10 @@ class Address #< SuperModel
   end
 
   def self.find_by(field, value)
-      Adapter.find_by(Address.table_name, field, value)
+    addresses = []
+    Adapter.find_by(Address.table_name, field, value).each do |address_info|
+      addresses.push(Address.new({:id => address_info["id"], :id_person => address_info["id_person"], :address => address_info["address"]}))
+    end
   end
 
   def destroy()
