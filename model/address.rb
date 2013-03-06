@@ -25,16 +25,16 @@ class Address #< SuperModel
 
   def self.find(id)
     address = {}
-    address_info = Adapter.find(id).first
-    Person.new({:id => address_info["id"], :id_person => address_info["id_person"], :address => address_info["address"]})
+    address_info = Adapter.find(Address.table_name, id).first
+    Address.new({:id => address_info["id"], :id_person => address_info["id_person"], :address => address_info["address"]})
   end
 
   def self.find_by(field, value)
       Adapter.find_by(Address.table_name, field, value)
   end
 
-  def destroy(id)
-      Adapter.destroy(id)
+  def destroy()
+      Adapter.destroy(Address.table_name, id)
   end  
 
   def update_attributes(id, fields, values)

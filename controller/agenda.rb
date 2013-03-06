@@ -18,7 +18,8 @@ class Agenda
 	      when "2"
 	      	list_contacts
 	      when "3"
-	        person = choose_user
+	        id_person = choose_user
+	        edit_contact(id_person)
 	      when "4"
 	        id_person = choose_user
 	        destroy_contact(id_person)
@@ -71,6 +72,12 @@ class Agenda
 	end
 
 	def edit_contact(id)
+		person = Person.find(id)
+		addresses = []
+		Address.find_by("id_person", person.id).each do |item|
+			addresses.push(item)
+		end
+		TerminalView.edit_contact(person, addresses)
 	end
 
 	def destroy_contact(id)

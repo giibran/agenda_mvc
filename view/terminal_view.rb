@@ -1,5 +1,6 @@
 require '../model/person.rb'
 require '../model/address.rb'
+require 'debugger'
 
 class TerminalView
 
@@ -54,12 +55,22 @@ class TerminalView
   end
 
   def self.edit_contact(person_info, address_info)
-    
+
+    debugger
+    a = 1
   end
 
   def ask_change_info(key, value)
     puts "key: #{value}"
     puts "do you want change this value? \n1)Yes, 2)NO "
     change_value = gets.chomp()
+    if change_value == "1"
+      TerminalView.ask_new_value
+    end
+  end
+
+  def self.ask_new_value
+    puts("what is the new value?")
+    gets.chomp()
   end
 end
