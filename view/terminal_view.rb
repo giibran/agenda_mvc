@@ -34,9 +34,6 @@ class TerminalView
     end
     addresses
   end
-    
-    #@people << 
-    #m =Person.new(id, name, lastname, phone, addresses).first
 
 	def self.print_contact(person_info, address_info)
 		print("NAME: #{person_info[0]} \nLAST NAME: #{person_info[1]} \nPHONE: #{person_info[2]} \nADDRESS:\n")
@@ -55,18 +52,23 @@ class TerminalView
   end
 
   def self.edit_contact(person_info, address_info)
-
-    debugger
-    a = 1
+    person_info.name = TerminalView.ask_change_info("NAME", person_info.name)
+    person_info.last_name = TerminalView.ask_change_info("LAST NAME", person_info.last_name)
+    person_info.phone = TerminalView.ask_change_info("PHONE", person_info.phone)
+    address_info.each do |address|
+      address.address = TerminalView.ask_change_info("ADDRESS", address.address)
+    end
+    new_info = [person_info, address_info]
   end
 
-  def ask_change_info(key, value)
-    puts "key: #{value}"
+  def self.ask_change_info(key, value)
+    puts "#{key}: #{value}"
     puts "do you want change this value? \n1)Yes, 2)NO "
     change_value = gets.chomp()
     if change_value == "1"
-      TerminalView.ask_new_value
+      value = TerminalView.ask_new_value
     end
+    value
   end
 
   def self.ask_new_value

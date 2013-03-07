@@ -6,7 +6,6 @@ require 'debugger'
 class Agenda
 	attr_accessor :terminal_view
 	
-
 	def menu
 		option = 0
 		while option != "5"
@@ -73,20 +72,17 @@ class Agenda
 
 	def edit_contact(id)
 		person = Person.find(id)
-		addresses = []
-		Person.addresses(person.id).each do |item|
-			addresses.push(item)
-		end
-		debugger
-		TerminalView.edit_contact(person, addresses)
+		addresses = Person.addresses(person.id)
+		new_info = TerminalView.edit_contact(person, addresses)
+		person = new_info[0]
+		person.update_attributes
+		addresses = new_info[1]
 	end
 
 	def destroy_contact(id)
 		person = Person.find(id)
 		person.destroy
 	end
-
-
 end
 
 contacts = Agenda.new

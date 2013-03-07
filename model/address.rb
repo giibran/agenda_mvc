@@ -1,5 +1,7 @@
 require '../lib/conection.rb'
 require '../lib/adapter.rb'
+require 'debugger'
+
 class Address #< SuperModel
 	attr_accessor :id_person, :address, :id
 
@@ -14,9 +16,9 @@ class Address #< SuperModel
   end
 
   def create()
-      fields = ["id_person, address"]
-      values = [@id_person, @address]
-      id = Adapter.create(self.class.table_name, fields, values)
+    fields = ["id_person, address"]
+    values = [@id_person, @address]
+    id = Adapter.create(self.class.table_name, fields, values)
   end
 
   def self.table_name
@@ -34,25 +36,28 @@ class Address #< SuperModel
     Adapter.find_by(Address.table_name, field, value).each do |address_info|
       addresses.push(Address.new({:id => address_info["id"], :id_person => address_info["id_person"], :address => address_info["address"]}))
     end
+    addresses
   end
 
   def destroy()
       Adapter.destroy(Address.table_name, id)
   end  
 
-  def update_attributes(id, fields, values)
-      Adapter.update(self.class.table_name, id, fields, values)
+  def update_attributes()
+    fields = ["id_person, address"]
+    values = [@id_person, @address]
+    Adapter.update(self.class.table_name, id, fields, values)
   end
 
   def self.show_all
-      address_info = Adapter.find_all(Address.table_name)
-      address = []
-      address_info.each do |item|
-        address_info[:id] = item["id"]
-        address_info[:id_person] = item["id_person"]
-        address_info[:name] = item["name"]
-        addresses.push(Address.new(address_info))
-      end
-      addresses
+    address_info = Adapter.find_all(Address.table_name)
+    address = []
+    address_info.each do |item|
+      address_info[:id] = item["id"]
+      address_info[:id_person] = item["id_person"]
+      address_info[:name] = item["name"]
+      addresses.push(Address.new(address_info))
+    end
+    addresses
   end
 end

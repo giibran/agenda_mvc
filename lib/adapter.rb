@@ -31,8 +31,12 @@ class Adapter
   end
 
   def self.update(table, id, fields, values)
-    "UPDATE #{table} SET #{field} = #{value} WHERE id = #{id}"
-    query = "UPDATE #{table} SET WHERE id = #{id};"
+    UPDATE table_name
+SET column1=value, column2=value2,...
+WHERE some_column=some_value
+
+
+    query =  "UPDATE #{table} SET #{fields} = #{values} WHERE id = #{id}"
     Conection.send_query(query)    
   end
 end
