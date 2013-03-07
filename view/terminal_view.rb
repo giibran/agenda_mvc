@@ -9,7 +9,12 @@ class TerminalView
   end
 	
 	def self.input
-		gets.chomp()
+		word = gets.chomp()
+    if word.empty?
+      puts "Empty value is not allowed, please send a correct value."
+      TerminalView.input
+    end
+    word
 	end
 
 	def self.ask_info_person
