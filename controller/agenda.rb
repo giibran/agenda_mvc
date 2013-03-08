@@ -41,7 +41,7 @@ class Agenda
   		person_info[2] = item.phone
   		all_address = Address.find_by("id_person", person_id)
   		all_address.each do |item|
-  			address_info.push(item["address"])
+  			address_info.push(item.address)
   		end
   		TerminalView.print_contact(person_info, address_info)
   	end
@@ -77,6 +77,7 @@ class Agenda
 		person = new_info[0]
 		person.update_attributes
 		addresses = new_info[1]
+		addresses.each {|address| address.update_attributes}
 	end
 
 	def destroy_contact(id)

@@ -23,8 +23,7 @@ class Person #< SuperModel
   end
 
   def create()
-    fields = ["name, last_name, phone"]
-    values = [@name, @last_name, @phone]
+    person_info = {:name => name, :last_name => last_name, :phone => phone}
     Adapter.create(self.class.table_name, fields, values)
   end
 
@@ -46,9 +45,8 @@ class Person #< SuperModel
   end  
 
   def update_attributes()
-    fields = ["name, last_name, phone"]
-    values = [@name, @last_name, @phone]
-    Adapter.update(self.class.table_name, id, fields, values)
+    person_info = {:name => name, :last_name => last_name, :phone => phone}
+    Adapter.update(self.class.table_name, id, person_info)
   end
 
   def self.show_all

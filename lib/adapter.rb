@@ -3,7 +3,10 @@ require 'debugger'
 
 class Adapter 
   
-  def self.create (table, fields, values)
+  def self.create (table, info)
+    fields = []
+    values = []
+    info.each {|key, value| fields.push(key); values.push(value))}
     query = "INSERT INTO #{table}(#{fields.join(',')}) VALUES(#{values.map {|x| "'#{x}'"}.join(',')});"
     Conection.send_query(query)
     query = "SELECT * FROM #{table} ORDER BY id DESC LIMIT 1"
@@ -30,11 +33,10 @@ class Adapter
     Conection.send_query(query)        
   end
 
-  def self.update(table, id, fields, values)
-    #UPDATE table_name
-    #SET column1=value, column2=value2,...
-    #WHERE some_column=some_value
-    query =  "UPDATE #{table} SET #{fields} = #{values} WHERE id = #{id}"
+  def self.update(table, id, info)
+    string = []
+    info.each {|key, value| string.push("#{key} = '#{value}'")}
+    query =  "UPDATE #{table} SET #{string.join(',')} WHERE id = #{id}"
     Conection.send_query(query)    
   end
 end

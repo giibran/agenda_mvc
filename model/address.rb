@@ -44,9 +44,8 @@ class Address #< SuperModel
   end  
 
   def update_attributes()
-    fields = ["id_person, address"]
-    values = [@id_person, @address]
-    Adapter.update(self.class.table_name, id, fields, values)
+    address_info = {:address => address}
+    Adapter.update(self.class.table_name, id, address_info)
   end
 
   def self.show_all
