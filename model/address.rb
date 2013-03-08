@@ -16,9 +16,8 @@ class Address #< SuperModel
   end
 
   def create()
-    fields = ["id_person, address"]
-    values = [@id_person, @address]
-    id = Adapter.create(self.class.table_name, fields, values)
+    address_info = {:id_person => id_person, :address => address}
+    id = Adapter.create(self.class.table_name, address_info)
   end
 
   def self.table_name

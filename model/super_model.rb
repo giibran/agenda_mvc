@@ -15,8 +15,9 @@ class SuperModel
     	
   end
 
-  def create(field, values)
-    id = Adapter.create(self.class.table_name, fields, values)
+  def create(person_info)
+    person_info = {:name => name, :last_name => last_name, :phone => phone}
+    id = Adapter.create(self.class.table_name, person_info)
   end
 
   	

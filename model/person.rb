@@ -24,7 +24,7 @@ class Person #< SuperModel
 
   def create()
     person_info = {:name => name, :last_name => last_name, :phone => phone}
-    Adapter.create(self.class.table_name, fields, values)
+    id = Adapter.create(self.class.table_name, person_info)
   end
 
   def self.find(id)
@@ -39,7 +39,7 @@ class Person #< SuperModel
   def destroy()
     Adapter.destroy(Person.table_name, id)
     Person.addresses(id).each do |item|
-      address = Address.find(item["id"])
+      address = Address.find(item.id)
       address.destroy
     end
   end  

@@ -6,7 +6,10 @@ class Adapter
   def self.create (table, info)
     fields = []
     values = []
-    info.each {|key, value| fields.push(key); values.push(value))}
+    info.each do |key, value|
+     fields.push(key)
+     values.push(value)
+    end
     query = "INSERT INTO #{table}(#{fields.join(',')}) VALUES(#{values.map {|x| "'#{x}'"}.join(',')});"
     Conection.send_query(query)
     query = "SELECT * FROM #{table} ORDER BY id DESC LIMIT 1"
