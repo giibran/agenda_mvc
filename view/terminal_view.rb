@@ -41,7 +41,7 @@ class TerminalView
   end
 
 	def self.print_contact(person_info, address_info)
-		print("NAME: #{person_info[0]} \nLAST NAME: #{person_info[1]} \nPHONE: #{person_info[2]} \nADDRESS:\n")
+		print("NAME: #{person_info.name} \nLAST NAME: #{person_info.last_name} \nPHONE: #{person_info.phone} \nADDRESS:\n")
     address_info.each do |address|
       print("#{address}\n")
     end

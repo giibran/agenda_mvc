@@ -15,16 +15,14 @@ class SuperModel
     	
   end
 
-  def create(person_info)
-    person_info = {:name => name, :last_name => last_name, :phone => phone}
-    id = Adapter.create(self.class.table_name, person_info)
+  def create(info)
+    id = Adapter.create(self.class.table_name, info)
   end
-
   	
-	def find(id_person)
-	  query_person = "SELECT * FROM address WHERE id_person = '#{id_person}';"
-	  send_query(query_person)
-	end
+	def self.find(id)
+    address_info = Adapter.find(Address.table_name, id).first
+    Address.new({:id => address_info["id"], :id_person => address_info["id_person"], :address => address_info["address"]})
+  end
 
 	def update_attributes(fields, values)
     Adapter.update(self.class.table_name, id, fields, values)

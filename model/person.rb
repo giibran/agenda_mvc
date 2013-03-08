@@ -3,7 +3,7 @@ require '../model/super_model.rb'
 require '../lib/adapter.rb'
 require 'debugger'
 
-class Person #< SuperModel
+class Person < SuperModel
 	attr_accessor :name, :last_name, :phone, :id
 
 	def initialize(person_info)
@@ -22,10 +22,10 @@ class Person #< SuperModel
     "person"
   end
 
-  def create()
-    person_info = {:name => name, :last_name => last_name, :phone => phone}
-    id = Adapter.create(self.class.table_name, person_info)
-  end
+  #def create()
+  #  person_info = {:name => name, :last_name => last_name, :phone => phone}
+  #  id = Adapter.create(self.class.table_name, person_info)
+  #end
 
   def self.find(id)
     person_info = Adapter.find(table_name, id).first

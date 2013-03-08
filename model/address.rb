@@ -2,7 +2,7 @@ require '../lib/conection.rb'
 require '../lib/adapter.rb'
 require 'debugger'
 
-class Address #< SuperModel
+class Address < SuperModel
 	attr_accessor :id_person, :address, :id
 
 	def initialize(address_info)
@@ -15,17 +15,16 @@ class Address #< SuperModel
     
   end
 
-  def create()
-    address_info = {:id_person => id_person, :address => address}
-    id = Adapter.create(self.class.table_name, address_info)
-  end
+  #def create()
+  #  address_info = {:id_person => id_person, :address => address}
+  #  id = Adapter.create(self.class.table_name, address_info)
+  #end
 
   def self.table_name
     "address"
   end
 
   def self.find(id)
-    address = {}
     address_info = Adapter.find(Address.table_name, id).first
     Address.new({:id => address_info["id"], :id_person => address_info["id_person"], :address => address_info["address"]})
   end

@@ -31,19 +31,19 @@ class Agenda
 	end
 
 	def list_contacts
-		person_info =[]
+		#person_info =[]
   	all = Person.show_all
   	all.each do |item|
   		address_info = []
   		person_id = item.id
-  		person_info[0] = item.name
-  		person_info[1] = item.last_name
-  		person_info[2] = item.phone
+  		#person_info[0] = item.name
+  		#person_info[1] = item.last_name
+  		#person_info[2] = item.phone
   		all_address = Address.find_by("id_person", person_id)
   		all_address.each do |item|
   			address_info.push(item.address)
   		end
-  		TerminalView.print_contact(person_info, address_info)
+  		TerminalView.print_contact(item, address_info)
   	end
 	end
 
@@ -51,13 +51,13 @@ class Agenda
 		person_info = TerminalView.ask_info_person
 	  address_info = TerminalView.ask_info_address
 	  @person = Person.new(person_info)
-	  id = @person.create().first["id"]
+	  id = @person.create(person_info).first["id"]
 	  address_info.each do |address|
 	  	address_info = {}
 	  	address_info[:id_person] = id
 	  	address_info[:address] = address
 	  	@address = Address.new(address_info)
-	   	@address.create()
+	   	@address.create(address_info)
 	  end
 
 	end
